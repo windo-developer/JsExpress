@@ -2,7 +2,15 @@ import express from 'express'
 
 const app = express();
 
-console.log("Test Server")
+app.set("view engine", "pug");
+app.set("views", __dirname + "/views");
 
-app.listen(3000);
+app.use("/public", express.static(__dirname + "/public"));
+
+app.get("/", (req,res) => res.render("home"));
+app.get("/*", (req,res) => res.redirect("/"));
+
+const listenPort = () => console.log("http://localhost:3000/")
+
+app.listen(3000, listenPort);
 
